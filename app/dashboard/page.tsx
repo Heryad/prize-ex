@@ -5,7 +5,6 @@ import Image from "next/image";
 import React, { useState } from 'react'
 import useEmblaCarousel from 'embla-carousel-react'
 import Autoplay from 'embla-carousel-autoplay'
-import { Card } from "@/components/ui/card";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area"
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
@@ -15,17 +14,26 @@ export default function Home() {
   const [isBar, setIsBar] = useState(true);
 
   const router = useRouter();
-  
+
   const moveNext = () => {
     router.push('/dashboard/items');
   }
 
   const items = [
-    "Cars",
-    "Electronics",
-    'edede'
+    {
+      itemName: 'Cars',
+      imgURL: 'https://s3-alpha-sig.figma.com/img/283d/6a67/f081a2b907ada331acda430adefbd53b?Expires=1728864000&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=VdIaLhDcuf0LHgfyOQgTp4-kOnIpy~Pt50ohFW1ahpcuzp-5lFl8ZOEvQ3u9vMAiqZ6e8KPCmZwFLYpJyXspwVO~QjaqoqUCGwslVnxUF39urwa~aR-RLqtU-xGImQlj6RAX4LRtd2rS6AJ63pLS1GHVwK2fWpPeQiDG2BHVGkQZP1Xoa9R5GZSyibvUeIewccYFTM3fRe9cfzeMFFKAZm3duqk0aD8zZUcSbP5Nk5Hnfs472Hv1Pubpbenx287ABmRL2b~zDf9aTOG3LLS3eB91Wv8QWhBPSqryDvWeKjd60uxqb6AN~iMC-Cu00fucEJRwySn4VeOZ3LXrkG3JIw__'
+    },
+    {
+      itemName: 'Electronics',
+      imgURL: 'https://s3-alpha-sig.figma.com/img/c319/787e/206111fc550e203e578e81ea2e005703?Expires=1728864000&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=qeAablLT~v8yMlpGFz9oTsJJIJYtP5FIP5WQs4kVRcmIHGG5XB10IYoJvXdsK-emqAfYqwUrssBBxC587BY8hyDUcMb~dQDV3HqXa-nqmJ77YPldSbrVFpubAbsHKkFN3EhtWKyLJTsX5s3OraqJWqjxGJsNSdvTApFXxYhBXdcBsZAEpaGZjNXdmiHTjGnqQVzojX1yAjyl2~YYo~P3gh-OSNW~p61nqOGLKQWOnpk7Q2BjpBRRck2FeAWT~Pyml9jFtgY99y0VjiwwVbLCdnsO7ZI8mlwR4YQ6MePqRed0brLZR~KftzM7rPl5Xv80Rs6TtDCAYunD2FA1HNn0IA__'
+    },
+    {
+      itemName: 'Cars',
+      imgURL: 'https://s3-alpha-sig.figma.com/img/283d/6a67/f081a2b907ada331acda430adefbd53b?Expires=1728864000&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=VdIaLhDcuf0LHgfyOQgTp4-kOnIpy~Pt50ohFW1ahpcuzp-5lFl8ZOEvQ3u9vMAiqZ6e8KPCmZwFLYpJyXspwVO~QjaqoqUCGwslVnxUF39urwa~aR-RLqtU-xGImQlj6RAX4LRtd2rS6AJ63pLS1GHVwK2fWpPeQiDG2BHVGkQZP1Xoa9R5GZSyibvUeIewccYFTM3fRe9cfzeMFFKAZm3duqk0aD8zZUcSbP5Nk5Hnfs472Hv1Pubpbenx287ABmRL2b~zDf9aTOG3LLS3eB91Wv8QWhBPSqryDvWeKjd60uxqb6AN~iMC-Cu00fucEJRwySn4VeOZ3LXrkG3JIw__'
+    },
   ]
-  
+
   return (
     <div className='flex-col h-screen items-center overflow-auto bg-gray-100'>
       {/* Header Bar */}
@@ -42,21 +50,15 @@ export default function Home() {
       <section className="embla h-36 w-screen mt-3" ref={emblaRef}>
         <div className="embla__container h-full">
           <div className="embla__slide w-screen">
-            <Card className="bg-white h-full flex justify-center items-center  ml-4 mr-4">
+            <div className="bg-white h-full flex justify-center items-center rounded-lg ml-4 mr-4">
               <span>one</span>
-            </Card>
+            </div>
           </div>
 
           <div className="embla__slide w-screen">
-            <Card className="bg-white h-full flex justify-center items-center  ml-4 mr-4">
+            <div className="bg-white h-full flex justify-center items-center rounded-lg ml-4 mr-4">
               <span>two</span>
-            </Card>
-          </div>
-
-          <div className="embla__slide w-screen">
-            <Card className="bg-white h-full flex justify-center items-center ml-4 mr-4">
-              <span>three</span>
-            </Card>
+            </div>
           </div>
         </div>
       </section>
@@ -64,35 +66,35 @@ export default function Home() {
       <section className="flex flex-col w-screen mt-3">
         <span className="ml-4 font-bold">Categories</span>
 
-        <div className="flex flex-row w-screen mt-3 overflow-x-scroll">
-          <ScrollArea className="w-full whitespace-nowrap rounded-md">
-            <div className="flex w-max space-x-4 pl-4 pr-4">
-              {items.map((item, index) => (
-                <div key={index} className="w-[190px] h-32 bg-white flex-shrink-0 rounded-lg">
-                  <span className="font-semibold mt-4 ml-4 flex">{item}</span>
-                  <Image src={coin} alt="coin" />
+        <ScrollArea className="w-full whitespace-nowrap rounded-md mt-3 overflow-hidden">
+          <div className="flex w-max space-x-4 pl-4 pr-4 overflow-hidden">
+            {items.map((item, index) => (
+              <div key={index} className="w-[190px] bg-white rounded-lg">
+                <span className="font-semibold mt-2 mb-2 ml-4 flex">{item.itemName}</span>
+                <div className="flex w-full h-20 justify-center items-center">
+                  <Image className="max-h-[120px] p-3" width={150} height={10} src={item.imgURL} alt="coin" />
                 </div>
-              ))}
-            </div>
-            <ScrollBar orientation="horizontal" />
-          </ScrollArea>
-        </div>
+              </div>
+            ))}
+          </div>
+          <ScrollBar orientation="horizontal" />
+        </ScrollArea>
       </section>
       {/* Items Banner */}
       <div className="flex flex-col w-screen mt-3">
         <span className="ml-4 font-bold">Draws</span>
 
-      <div className={isBar ? 'space-y-4 mt-3 ml-3 mr-3 mb-3' : 'space-y-4 mt-3 ml-3 mr-3 mb-[80px]'}>
-          {['Ipad Pro 256GB Space Grey', 'hello world'].map((item, index) => (
+        <div className={isBar ? 'space-y-4 mt-3 ml-3 mr-3 mb-3' : 'space-y-4 mt-3 ml-3 mr-3 mb-[80px]'}>
+          {['Ipad Pro 256GB Space Grey'].map((item, index) => (
             <div key={index} className="bg-white p-4 rounded-lg shadow">
-              <div className="flex justify-between items-center mb-2" onClick={() => {moveNext()}}>
+              <div className="flex justify-between items-center mb-2" onClick={() => { moveNext() }}>
                 <span className="text-gray-500">Days left</span>
 
                 <span className="bg-blue-100 text-blue-800 px-2 py-1 rounded text-sm">
                   {index % 2 === 0 ? '42 days' : '64 days'}
                 </span>
               </div>
-              <img src="/placeholder.svg" alt={item} className="w-full h-40 object-cover rounded mb-2" />
+              <Image alt='1221' width={100} height={100} src="https://s3-alpha-sig.figma.com/img/2395/20af/e36966274aef2836ab3c3561f6b69a23?Expires=1728864000&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=o1IvKWbdxay0wE1EnVnoMCVvgEvyaQNtc-7A3ajoTqyDQvDt4Ddaf~CxcMl0NEuhzApTebTMWN4uSKM5mX0ieT-TCj0SJWDv88phqlVGvDWL3fmTw1pt-4OvobnyCqb1YRFBcOu0INXk~DgH-5rK7n-WYHVRKQeK92HHYBt9xvM5Sg0l4tKWGPRGAhK-vWCYsOE209hggFdtypDRrWnhzHX-1I--M22GgLon4nL-BQmyL-Ml5g84BbzNfBI3pEOdAYpXS6vjH8-Q1TaKIQsaB3LDtDv29pcGU9tPagZ6ioJN5dzeZu4-U9lowbCDu6-yi33fAC0iztRdXDEqYbmVgA__" className="object-cover" />
               <h4 className="font-semibold">{item}</h4>
               <div className="flex justify-between items-center mt-2">
                 <div>
@@ -125,7 +127,7 @@ export default function Home() {
                   </button>
                 </div>
               ) : (
-                <button className="w-full bg-yellow-400 text-white py-2 rounded-lg mt-4 font-semibold" onClick={() => {moveNext()}}>
+                <button className="w-full bg-yellow-400 text-white py-2 rounded-lg mt-4 font-semibold" onClick={() => { moveNext() }}>
                   Buy ticket
                 </button>
               )}

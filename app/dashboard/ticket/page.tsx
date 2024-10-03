@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button"
-import { ArrowLeft, Check, ChevronRight, Clock, TimerIcon } from "lucide-react"
+import { ArrowLeft, Check, TimerIcon } from "lucide-react"
 import Image from "next/image"
 
 export default function MyTickets() {
