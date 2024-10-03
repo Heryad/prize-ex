@@ -2,15 +2,18 @@
 import { BellDot, Plus } from "lucide-react";
 import coin from '@/img/coin.png'
 import Image from "next/image";
-import React from 'react'
+import React, { useState } from 'react'
 import useEmblaCarousel from 'embla-carousel-react'
 import Autoplay from 'embla-carousel-autoplay'
 import { Card } from "@/components/ui/card";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area"
 import { useRouter } from "next/navigation";
+import { Button } from "@/components/ui/button";
 
 export default function Home() {
   const [emblaRef] = useEmblaCarousel({ loop: false }, [Autoplay()])
+  const [isBar, setIsBar] = useState(true);
+
   const router = useRouter();
   
   const moveNext = () => {
@@ -24,7 +27,7 @@ export default function Home() {
   ]
   
   return (
-    <div className=' flex-col items-center overflow-auto bg-gray-100'>
+    <div className='flex-col h-screen items-center overflow-auto bg-gray-100'>
       {/* Header Bar */}
       <section className="flex flex-row w-screen h-20 items-center">
         <span className="p-3 bg-[#FBDFB1] rounded-full ml-5 font-bold">LM</span>
@@ -79,7 +82,7 @@ export default function Home() {
       <div className="flex flex-col w-screen mt-3">
         <span className="ml-4 font-bold">Draws</span>
 
-        <div className="space-y-4 mt-3 mb-3 ml-3 mr-3">
+      <div className={isBar ? 'space-y-4 mt-3 ml-3 mr-3 mb-3' : 'space-y-4 mt-3 ml-3 mr-3 mb-[80px]'}>
           {['Ipad Pro 256GB Space Grey', 'hello world'].map((item, index) => (
             <div key={index} className="bg-white p-4 rounded-lg shadow">
               <div className="flex justify-between items-center mb-2" onClick={() => {moveNext()}}>
@@ -128,6 +131,15 @@ export default function Home() {
               )}
             </div>
           ))}
+        </div>
+      </div>
+
+      <div className="fixed bottom-[70px] left-0 right-0 bg-yellow-500 text-primary-foreground p-4 shadow-lg z-50" hidden={isBar}>
+        <div className="container mx-auto flex justify-between items-center">
+          <p className="text-lg font-bold">290$</p>
+          <Button className="bg-white text-black rounded-lg h-10 font-semibold">
+            Complete Purchase
+          </Button>
         </div>
       </div>
     </div>
