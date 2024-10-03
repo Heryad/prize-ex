@@ -24,9 +24,9 @@ export default function Home() {
   ]
   
   return (
-    <div className='h-screen flex flex-col items-center overflow-auto bg-gray-100'>
+    <div className=' flex-col items-center overflow-auto bg-gray-100'>
       {/* Header Bar */}
-      <section className="flex flex-row w-screen h-20 items-center mt-5">
+      <section className="flex flex-row w-screen h-20 items-center">
         <span className="p-3 bg-[#FBDFB1] rounded-full ml-5 font-bold">LM</span>
         <BellDot size={45} className="p-2 bg-white rounded-full ml-auto" />
         <div className="flex flex-row ml-2 mr-5 p-2 bg-white rounded-full items-center">
@@ -36,7 +36,7 @@ export default function Home() {
         </div>
       </section>
       {/* Carousel Bar */}
-      <section className="embla h-56 w-screen mt-3" ref={emblaRef}>
+      <section className="embla h-36 w-screen mt-3" ref={emblaRef}>
         <div className="embla__container h-full">
           <div className="embla__slide w-screen">
             <Card className="bg-white h-full flex justify-center items-center  ml-4 mr-4">
@@ -67,7 +67,7 @@ export default function Home() {
               {items.map((item, index) => (
                 <div key={index} className="w-[190px] h-32 bg-white flex-shrink-0 rounded-lg">
                   <span className="font-semibold mt-4 ml-4 flex">{item}</span>
-                  <Image src={coin} alt="coin" width={190} />
+                  <Image src={coin} alt="coin" />
                 </div>
               ))}
             </div>
@@ -76,11 +76,11 @@ export default function Home() {
         </div>
       </section>
       {/* Items Banner */}
-      <section className="flex flex-col w-screen mt-3">
+      <div className="flex flex-col w-screen mt-3">
         <span className="ml-4 font-bold">Draws</span>
 
         <div className="space-y-4 mt-3 mb-3 ml-3 mr-3">
-          {['Ipad Pro 256GB Space Grey',].map((item, index) => (
+          {['Ipad Pro 256GB Space Grey', 'hello world'].map((item, index) => (
             <div key={index} className="bg-white p-4 rounded-lg shadow">
               <div className="flex justify-between items-center mb-2" onClick={() => {moveNext()}}>
                 <span className="text-gray-500">Days left</span>
@@ -129,7 +129,7 @@ export default function Home() {
             </div>
           ))}
         </div>
-      </section>
+      </div>
     </div>
   );
 }
