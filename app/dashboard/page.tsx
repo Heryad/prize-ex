@@ -6,7 +6,6 @@ import React, { useState } from 'react'
 import useEmblaCarousel from 'embla-carousel-react'
 import Autoplay from 'embla-carousel-autoplay'
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area"
-import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 
@@ -14,7 +13,6 @@ export default function Home() {
   const [emblaRef] = useEmblaCarousel({ loop: false }, [Autoplay()])
   const [isBar] = useState(true);
 
-  const router = useRouter();
 
   // const moveNext = () => {
   //   router.push('/dashboard/items');
