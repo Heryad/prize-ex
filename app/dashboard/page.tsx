@@ -16,9 +16,9 @@ export default function Home() {
 
   const router = useRouter();
 
-  const moveNext = () => {
-    router.push('/dashboard/items');
-  }
+  // const moveNext = () => {
+  //   router.push('/dashboard/items');
+  // }
 
   const items = [
     {
