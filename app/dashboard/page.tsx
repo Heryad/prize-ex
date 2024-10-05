@@ -8,6 +8,7 @@ import Autoplay from 'embla-carousel-autoplay'
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area"
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
+import { Progress } from "@/components/ui/progress";
 
 export default function Home() {
   const [emblaRef] = useEmblaCarousel({ loop: false }, [Autoplay()])
@@ -81,60 +82,41 @@ export default function Home() {
         </ScrollArea>
       </section>
       {/* Items Banner */}
-      <div className="flex flex-col w-screen mt-3">
+      <section className="flex flex-col w-screen mt-3">
         <span className="ml-4 font-bold">Draws</span>
 
-        <div className={isBar ? 'space-y-4 mt-3 ml-3 mr-3 mb-3' : 'space-y-4 mt-3 ml-3 mr-3 mb-[80px]'}>
-          {['Ipad Pro 256GB Space Grey'].map((item, index) => (
-            <div key={index} className="bg-white p-4 rounded-lg shadow">
-              <div className="flex justify-between items-center mb-2" onClick={() => { moveNext() }}>
-                <span className="text-gray-500">Days left</span>
-
-                <span className="bg-blue-100 text-blue-800 px-2 py-1 rounded text-sm">
-                  {index % 2 === 0 ? '42 days' : '64 days'}
-                </span>
-              </div>
-              <Image alt='1221' width={100} height={100} src="https://s3-alpha-sig.figma.com/img/2395/20af/e36966274aef2836ab3c3561f6b69a23?Expires=1728864000&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=o1IvKWbdxay0wE1EnVnoMCVvgEvyaQNtc-7A3ajoTqyDQvDt4Ddaf~CxcMl0NEuhzApTebTMWN4uSKM5mX0ieT-TCj0SJWDv88phqlVGvDWL3fmTw1pt-4OvobnyCqb1YRFBcOu0INXk~DgH-5rK7n-WYHVRKQeK92HHYBt9xvM5Sg0l4tKWGPRGAhK-vWCYsOE209hggFdtypDRrWnhzHX-1I--M22GgLon4nL-BQmyL-Ml5g84BbzNfBI3pEOdAYpXS6vjH8-Q1TaKIQsaB3LDtDv29pcGU9tPagZ6ioJN5dzeZu4-U9lowbCDu6-yi33fAC0iztRdXDEqYbmVgA__" className="object-cover" />
-              <h4 className="font-semibold">{item}</h4>
-              <div className="flex justify-between items-center mt-2">
-                <div>
-                  <p className="text-sm text-gray-500">Ticket price:</p>
-                  <p className="font-semibold text-orange-500">2 DOLLARS</p>
-                </div>
-                <div className="text-right">
-                  <p className="text-sm text-gray-500">Event time:</p>
-                  <p className="text-sm">05/04/2023</p>
-                </div>
-              </div>
-              <div className="mt-2">
-                <p className="text-sm text-gray-500">Tickets sold: 79%</p>
-                <div className="w-full bg-gray-200 rounded-full h-2 mt-1">
-                  <div className="bg-orange-500 h-2 rounded-full" style={{ width: '79%' }}></div>
-                </div>
-              </div>
-              {index === 1 ? (
-                <div className="flex justify-between items-center mt-4">
-                  <button className="bg-gray-200 text-gray-600 p-2 rounded-full">
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                    </svg>
-                  </button>
-                  <span className="text-xl font-semibold">1</span>
-                  <button className="bg-gray-200 text-gray-600 p-2 rounded-full">
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-                    </svg>
-                  </button>
-                </div>
-              ) : (
-                <button className="w-full bg-yellow-400 text-white py-2 rounded-lg mt-4 font-semibold" onClick={() => { moveNext() }}>
-                  Buy ticket
-                </button>
-              )}
+        <div className="grid grid-cols-2 ml-4 mr-4 mt-1">
+          {/* Card */}
+          <div className="bg-white rounded-lg m-2">
+            <div className="flex flex-row p-3 items-center">
+              <span className="text-md text-gray-600">Days Left</span>
+              <span className="ml-auto bg-blue-500 text-white rounded-md p-1">42 Days</span>
             </div>
-          ))}
+            <div className="flex justify-center">
+              <Image src={items[1].imgURL} alt="1" width={150} height={150} className="max-h-[150px] max-w-[150px] min-w-[150px] min-h-[150px]" />
+            </div>
+            <div className="flex flex-col items-center">
+              <span className="text-center max-w-32 font-bold mb-1 mt-1">Ipad Pro 256GB Space Gray</span>
+              <span className="flex w-40 h-[1px] bg-gray-200 ml-1 mr-1" />
+
+              <div className="flex flex-row w-full pl-3 pr-3 items-center mt-2">
+                <span className="text-[14px] text-gray-600">Ticket Price :</span>
+                <span className="ml-auto text-orange-600 font-bold">200 TMT</span>
+              </div>
+              <div className="flex flex-row w-full pl-3 pr-3 items-center mt-1">
+                <span className="text-[14px] text-gray-600">Event Time :</span>
+                <span className="ml-auto font-bold">12/12/2024</span>
+              </div>
+              <div className="flex flex-col w-full pl-3 pr-3 mt-2">
+                <span className="text-[14px] text-gray-600">Tickets Sold : 79%</span>
+                <Progress value={25} className="mt-1 h-2" />
+
+                <Button className="mt-3 mb-2 rounded-lg bg-yellow-400 text-black font-bold">Buy Ticket</Button>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
+      </section>
 
       <div className="fixed bottom-[70px] left-0 right-0 bg-yellow-500 text-primary-foreground p-4 shadow-lg z-50" hidden={isBar}>
         <div className="container mx-auto flex justify-between items-center">
