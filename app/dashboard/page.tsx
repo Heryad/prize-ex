@@ -103,7 +103,7 @@ export default function Home() {
               </div>
               <div className="flex flex-row w-full pl-3 pr-3 items-center mt-1">
                 <span className="text-[14px] text-gray-600">Event Time :</span>
-                <span className="ml-auto font-bold">12/12/2024</span>
+                <span className="ml-auto font-bold text-sm">12/12/2024</span>
               </div>
               <div className="flex flex-col w-full pl-3 pr-3 mt-2">
                 <span className="text-[14px] text-gray-600">Tickets Sold : 79%</span>
