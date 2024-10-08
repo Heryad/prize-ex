@@ -5,9 +5,17 @@ import { Button } from "@/components/ui/button"
 import { CardContent } from "@/components/ui/card"
 import { Bookmark, ChevronLeft } from "lucide-react"
 import { useRouter, useSearchParams } from 'next/navigation'
-import { useEffect, useState } from "react"
+import { Suspense, useEffect, useState } from "react"
 
-export default function ContestPage() {
+export default function Page() {
+  return (
+    <Suspense fallback={<p>Loading...</p>}>
+      <ContestPage />
+    </Suspense>
+  );
+}
+
+function ContestPage() {
   const router = useRouter()
   const [isLoading, setIsLoading] = useState(false);
 
