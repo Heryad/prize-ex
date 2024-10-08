@@ -16,10 +16,17 @@ export default function TopUpBalance() {
   const [amount, setAmount] = useState(0)
 
   const insertPayment = async () => {
+    const date = new Date()
+    const formattedDate = date.toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    })
+
     const rs = await fetch('/dashboard/api/Payment', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ methodName: 'USDT-TRC20', paymentAmount: amount, userID: '', paymentDate: 'now date', userName: 'user name' })
+      body: JSON.stringify({ methodName: 'USDT-TRC20', paymentAmount: amount, userID: localStorage.getItem('userID'), paymentDate: formattedDate, userName: localStorage.getItem('userName'), paymentStatus: 'pending' })
     })
     if (rs.status == 200) {
       alert('Payment Completed');

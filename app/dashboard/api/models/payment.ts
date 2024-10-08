@@ -5,7 +5,8 @@ const PaymentSchema = new mongoose.Schema({
   paymentAmount: String,
   userID: String,
   paymentDate: String,
-  userName: String
+  userName: String,
+  paymentStatus: String
 });
 
 export default mongoose.models.Payment || mongoose.model('Payment', PaymentSchema);
