@@ -37,7 +37,7 @@ export default function PaymentHistory() {
                 </button>
             </section>
             <section className='flex flex-col justify-center p-4'>
-                <span className='text-center text-xl mb-3'>Payment History</span>
+                <span className='text-center text-xl mb-3'>Payment Request History</span>
                 {isLoading ? <ProgressIndicator className='mt-auto mb-10 self-center' size={30} />
                 : <>
                     {itemData.map((item, index) => (
