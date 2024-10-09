@@ -9,6 +9,8 @@ import trc from '@/img/trc.png'
 import Image from 'next/image'
 import { Button } from '@/components/ui/button'
 import { useRouter } from 'next/navigation'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function TopUpBalance() {
   const router = useRouter();
@@ -29,8 +31,11 @@ export default function TopUpBalance() {
       body: JSON.stringify({ methodName: 'USDT-TRC20', paymentAmount: amount, userID: localStorage.getItem('userID'), paymentDate: formattedDate, userName: localStorage.getItem('userName'), paymentStatus: 'pending' })
     })
     if (rs.status == 200) {
-      alert('Payment Completed');
-      router.back();
+      toast('Payment Request Submitted Succesfully, Please Check your order status below', {
+        onClose: () =>{
+          router.back();
+        }
+      })
     }
   }
 
@@ -42,10 +47,10 @@ export default function TopUpBalance() {
         </button>
       </section>
 
-      <section className='flex flex-col justify-center mt-2 p-4'>
+      <section className='flex flex-col justify-center p-4'>
         <span className='text-center text-xl'>Top Up Balance</span>
 
-        <span className='mt-5 pl-1 mb-1'>Amount</span>
+        <span className='mt-2 pl-1 mb-1'>Amount</span>
         <Input placeholder='$' type='number' className='mt-1 bg-white rounded-xl h-14' value={amount} onChange={e => {setAmount(parseInt(e.target.value))}}/>
 
         <div className='bg-white flex flex-col rounded-xl mt-2 p-3'>
@@ -80,11 +85,18 @@ export default function TopUpBalance() {
             <span className='font-bold ml-auto text-2xl'>{amount} $</span>
           </div>
 
+          <div className='flex flex-row row-span-2 gap-2'>
+          <Button className='mt-5 p-5 w-full rounded-full h-14 bg-yellow-500 text-xl' onClick={() => {router.push('/dashboard/history')}}>
+            Payment History
+          </Button>
           <Button className='mt-5 p-5 w-full rounded-full h-14 bg-blue-600 text-xl' onClick={() => {insertPayment();}}>
             Confirm Payment
           </Button>
+          </div>
         </div>
       </div>
+      <ToastContainer />
+
       </section>
     </div>
   )

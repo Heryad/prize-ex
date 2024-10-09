@@ -10,6 +10,8 @@ import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { ProgressIndicator } from "@/components/ui/ProgressIndicator";
 import { useRouter } from 'next/navigation'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function Home() {
   const router = useRouter()
@@ -78,7 +80,9 @@ export default function Home() {
     }
   }
 
+  const [purchaseLoading, setPurchaseLoading] = useState(false);
   const insertTicket = async () => {
+    setPurchaseLoading(true);
     const rs = await fetch('/dashboard/api/Ticket', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -87,15 +91,28 @@ export default function Home() {
     if (rs.status == 200) {
       const mCatData = await rs.json();
       if(mCatData.msg == 'Balance Error'){
-        alert('Not Enaugh Balance to buy')
+        toast('Balance Error : Enough amount not available')
         setIsBarOpen(false);
         setItemPrice(0);
         setItemIndex(0);
+        setPurchaseLoading(false);
+        setBasketData(1);
       }else{
-        alert('Purchase Succeful');
+        toast('Ticket Purchased Succesfully')
+        setPurchaseLoading(false);
         setIsBarOpen(false);
         setItemPrice(0);
         setItemIndex(0);
+        setBasketData(1);
+
+        const loginResp = await fetch('/dashboard/api/Login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ telegramID: localStorage.getItem('userID') })
+        });
+        const mLoginData = await loginResp.json();
+        setUserName(mLoginData.data[0].userName);
+        setUserBalance(mLoginData.data[0].userBalance);
       }
     }
   }
@@ -163,7 +180,7 @@ export default function Home() {
                     <div className="bg-white rounded-lg m-2" key={index}>
                       <div className="flex flex-row p-3 items-center">
                         <span className="text-md text-gray-600">Days Left</span>
-                        <span className="ml-auto bg-blue-500 text-white rounded-md p-1">42 Days</span>
+                        <span className="ml-auto bg-blue-500 text-white rounded-md p-1">0 Days</span>
                       </div>
                       <div className="flex justify-center" onClick={() => { handleNavigate(item._id) }}>
                         <Image src={item.imagePath} alt="1" width={150} height={150} className="max-h-[150px] max-w-[150px] min-w-[150px] min-h-[150px]" onClick={() => { }} />
@@ -195,7 +212,7 @@ export default function Home() {
                     <div className="bg-white rounded-lg m-2" key={index}>
                       <div className="flex flex-row p-3 items-center">
                         <span className="text-md text-gray-600">Days Left</span>
-                        <span className="ml-auto bg-blue-500 text-white rounded-md p-1">42 Days</span>
+                        <span className="ml-auto bg-blue-500 text-white rounded-md p-1">0 Days</span>
                       </div>
                       <div className="flex justify-center" onClick={() => { handleNavigate(item._id) }}>
                         <Image src={item.imagePath} alt="1" width={150} height={150} className="max-h-[150px] max-w-[150px] min-w-[150px] min-h-[150px]" onClick={() => { }} />
@@ -225,7 +242,8 @@ export default function Home() {
               }
             </div>
           </section>
-        </>}
+        </>
+      }
 
       <div className="fixed bottom-[70px] left-0 right-0 bg-yellow-500 text-primary-foreground p-4 shadow-lg z-50" hidden={!isBarOpen}>
         <div className="container mx-auto flex justify-between items-center">
@@ -238,10 +256,11 @@ export default function Home() {
           <span className="font-bold text-2xl ml-auto mr-4">{itemPrice * basketData} $</span>
 
           <Button className="bg-white text-black rounded-xl h-10 font-semibold" onClick={() => {insertTicket()}}>
-            Purchase
+            {purchaseLoading ? <ProgressIndicator /> : 'Purchase'}
           </Button>
         </div>
       </div>
+      <ToastContainer />
     </div>
   );
 }

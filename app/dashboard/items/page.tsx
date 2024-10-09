@@ -6,7 +6,10 @@ import { CardContent } from "@/components/ui/card"
 import { Bookmark, ChevronLeft } from "lucide-react"
 import { useRouter, useSearchParams } from 'next/navigation'
 import { Suspense, useEffect, useState } from "react"
-
+import { Progress } from "@/components/ui/progress";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { ProgressIndicator } from "@/components/ui/ProgressIndicator";
 export default function Page() {
   return (
     <Suspense fallback={<p>Loading...</p>}>
@@ -50,11 +53,13 @@ function ContestPage() {
     if (rs.status == 200) {
       const mCatData = await rs.json();
       if (mCatData.msg == 'Balance Error') {
-        alert('Not Enaugh Balance to buy')
-        router.back();
+        toast('Balance Error : Enough amount not available')
+        setIsLoading(false);
+        setBasketData(1);
+        //router.back();
       } else {
         setIsLoading(false);
-        alert('Purchase Succeful');
+        toast('Ticket Purchased Succesfully')
         router.back();
       }
     }
@@ -90,13 +95,13 @@ function ContestPage() {
             <div className="text-gray-500">Days left</div>
           </div>
           <div className="mt-2 h-2 bg-orange-200 rounded-full">
-            <div className="h-full w-3/4 bg-orange-500 rounded-full"></div>
+            <Progress value={10} className="mt-1 h-2" />
           </div>
           <div className="flex justify-between mt-2 text-sm">
             <div>Applicants: {itemDetails.itemSoldQuantity}</div>
             <div>{itemDetails.itemDate}</div>
           </div>
-          <Button className="w-full mt-4 bg-blue-600 hover:bg-blue-700" onClick={() => { setIsBarOpen(true) }}>Buy ticket</Button>
+          <Button className="w-full mt-4 bg-blue-600 hover:bg-blue-700 h-12 rounded-full text-lg" onClick={() => { setIsBarOpen(true) }}>Buy ticket</Button>
         </div>
         <div className="mt-4 bg-white border-none">
           <CardContent className="p-4">
@@ -117,11 +122,12 @@ function ContestPage() {
             <span className="font-bold text-2xl ml-auto mr-4">{parseInt(itemDetails.itemPrice) * basketData} $</span>
 
             <Button className="bg-white text-black rounded-xl h-10 font-semibold" onClick={() => { insertTicket(); }} disabled={isLoading}>
-              {isLoading ? 'Please Wait' : 'Purchase'}
+              {isLoading ? <ProgressIndicator /> : 'Purchase'}
             </Button>
           </div>
         </div>
       </main>
+      <ToastContainer />
     </div>
   )
 }
