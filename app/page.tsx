@@ -1,7 +1,7 @@
 'use client'
 import { ProgressIndicator } from "@/components/ui/ProgressIndicator";
-import { useEffect, useState } from "react";
-import { useRouter, useSearchParams } from 'next/navigation'
+import { useEffect } from "react";
+import { useRouter } from 'next/navigation'
 import WebApp from '@twa-dev/sdk'
 
 interface UserData {
@@ -15,7 +15,6 @@ interface UserData {
 
 export default function Home() {
   const router = useRouter()
-  const searchParams = useSearchParams();
 
   const loginUser = async () => {
     const date = new Date()
@@ -47,7 +46,6 @@ export default function Home() {
   return (
     <div className='h-screen flex flex-col justify-center items-center'>
       <span className="font-bold text-2xl mt-auto">PRIZE-EX</span>
-      <span>{searchParams.get('refID')}</span>
       <ProgressIndicator className='mt-auto mb-10' size={30} />
     </div>
   );
