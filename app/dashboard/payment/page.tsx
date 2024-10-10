@@ -31,6 +31,7 @@ export default function TopUpBalance() {
       body: JSON.stringify({ methodName: 'USDT-TRC20', paymentAmount: amount, userID: localStorage.getItem('userID'), paymentDate: formattedDate, userName: localStorage.getItem('userName'), paymentStatus: 'pending' })
     })
     if (rs.status == 200) {
+      setAmount(0);
       toast('Payment Request Submitted Succesfully, Please Check your order status below', {
         onClose: () =>{
           router.back();

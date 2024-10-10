@@ -5,7 +5,8 @@ import coin from '@/img/coin.png'
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function Component() {
   const router = useRouter();
@@ -23,6 +24,11 @@ export default function Component() {
     const mLoginData = await loginResp.json();
     setUserName(mLoginData.data[0].userName);
     setUserBalance(mLoginData.data[0].userBalance);
+  }
+
+  const shareLink = async() => {
+    navigator.clipboard.writeText('https://t.me/PrizeX_Game_Bot/prz?startapp=' + localStorage.getItem('userID'));
+    toast('Invite Link Copied To Clipboard');
   }
 
   useEffect(() => {
@@ -56,7 +62,7 @@ export default function Component() {
 
         <div className="flex flex-row ml-4 mr-4 mt-4 bg-green-300 p-5 rounded-xl items-center">
           <span className="text-lg">Invite Your Friends<br />and earn<span className="font-bold text-xl"> 2 $</span></span>
-          <Button className="ml-auto text-black bg-white rounded-full p-5">Invite</Button>
+          <Button className="ml-auto text-black bg-white rounded-full p-5" onClick={() => {shareLink();}}>Invite</Button>
         </div>
       </section>
       {/* Settings Bar */}
@@ -87,6 +93,7 @@ export default function Component() {
           <ChevronRight color="gray" className="ml-auto" />
         </button>
       </section>
+      <ToastContainer />
     </div>
   )
 }

@@ -3,8 +3,7 @@ import mongoose from 'mongoose';
 const UserSchema = new mongoose.Schema({
     telegramID: String,
     userName: String,
-    userEmail: String,
-    userPhone: String,
+    userFirstName: String,
     registerDate: String,
     userBalance: String,
     invitedBy: String
