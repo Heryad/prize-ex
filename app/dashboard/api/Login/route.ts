@@ -10,13 +10,12 @@ export async function POST(request: Request) {
     if(mResp.length >= 1){
         return NextResponse.json({msg: 'user login', data: mResp});
     }else{
-        const mResp = await User.create(body);
         if(body.invitedBy != ''){
-            const newResp = await User.findById(body.invitedBy);
-            const prevBalance = newResp.userBalance;
+            const newResp = await User.find({telegramID: body.invitedBy});
+            const prevBalance = newResp[0].userBalance;
             const newBalance = parseInt(prevBalance) + 2;
             const updatedUser = await User.findOneAndUpdate(
-                { _id: body.invitedBy },
+                { telegramID: body.invitedBy },
                 {
                   $set: {
                     userBalance: newBalance,
@@ -24,8 +23,11 @@ export async function POST(request: Request) {
                 },
                 { new: true } // This option returns the updated document
             );
-            return NextResponse.json({msg: 'User Created', data: updatedUser});            
+            const mResp = await User.create(body);
+            return NextResponse.json({msg: 'user created', data: mResp});           
+        }else{
+            const mResp = await User.create(body);
+            return NextResponse.json({msg: 'user created', data: mResp});
         }
-        return NextResponse.json({msg: 'user created', data: mResp});
     }
 }

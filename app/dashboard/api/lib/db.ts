@@ -25,6 +25,7 @@ async function dbConnect() {
     cached.promise = mongoose.connect(MONGODB_URI!, opts).then((mongoose) => {
       return mongoose;
     });
+    console.debug('connected to db')
   }
 
   try {

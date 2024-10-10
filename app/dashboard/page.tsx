@@ -97,7 +97,15 @@ export default function Home() {
         setItemIndex(0);
         setPurchaseLoading(false);
         setBasketData(1);
-      }else{
+      }else if(mCatData.msg == 'Quantity Error'){
+        toast('Quantity Error : Enough amount not available')
+        setIsBarOpen(false);
+        setItemPrice(0);
+        setItemIndex(0);
+        setPurchaseLoading(false);
+        setBasketData(1);
+      }
+      else{
         toast('Ticket Purchased Succesfully')
         setPurchaseLoading(false);
         setIsBarOpen(false);

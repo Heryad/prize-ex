@@ -4,7 +4,7 @@ import Lottery from '../models/lottery';
 
 export async function GET() {
   await dbConnect();
-  const mResp = await Lottery.find({});
+  const mResp = await Lottery.find({lotteryStatus: 'pending'});
   return NextResponse.json(mResp);
 }
 

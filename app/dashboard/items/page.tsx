@@ -57,7 +57,13 @@ function ContestPage() {
         setIsLoading(false);
         setBasketData(1);
         //router.back();
-      } else {
+      }
+      else if (mCatData.msg == 'Quantity Error') {
+        toast('Quantity Error : Enough amount not available')
+        setIsBarOpen(false);
+        setBasketData(1);
+      }
+      else {
         setIsLoading(false);
         toast('Ticket Purchased Succesfully')
         router.back();
