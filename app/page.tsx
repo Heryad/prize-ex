@@ -17,19 +17,16 @@ export default function Home() {
 
     if (typeof window !== "undefined") {
       if (WebApp.initDataUnsafe.user) {
-        const loginResp = await fetch('/dashboard/api/Login', {
+        const catResp = await fetch('/dashboard/api/Login', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ telegramID: WebApp.initDataUnsafe.user?.id, userName: WebApp.initDataUnsafe.user?.username, userFirstName: WebApp.initDataUnsafe.user?.first_name, registerDate: formattedDate, userBalance: '0',  invitedBy: WebApp.initDataUnsafe?.start_param})
         });
-        if(loginResp != null){
-          const mRespData = await loginResp.json();
-          console.log(mRespData);
-          localStorage.setItem('userID', mRespData.data[0].telegramID);
-          localStorage.setItem('userName', mRespData.data[0].userFirstName);
+        if(catResp != null){
+          const mCatData = await catResp.json();
+          localStorage.setItem('userID', mCatData.data[0].telegramID);
+          localStorage.setItem('userName', mCatData.data[0].userFirstName);
           router.push('/dashboard')
-        }else{
-          console.log('empty')
         }
       }
     }
