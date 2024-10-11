@@ -23,6 +23,7 @@ export async function POST(request: Request) {
                 },
                 { new: true } // This option returns the updated document
             );
+            console.debug(updatedUser);
             const mResp = await User.create(body);
             return NextResponse.json({msg: 'user created', data: mResp});           
         }else{

@@ -35,6 +35,7 @@ export async function POST(request: Request) {
                     },
                     { new: true } // This option returns the updated document
                 );
+                console.debug(updatedLottery)
 
                 const newUserBalance = userBalance - itemPrice;
                 const updatedUser = await User.findOneAndUpdate(
