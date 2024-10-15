@@ -87,13 +87,15 @@ function ContestPage() {
         <Bookmark className="w-6 h-6" onClick={() => { addBookmark() }} />
       </header>
       <main className="px-4">
+        <div className="bg-white flex rounded-lg justify-center items-center">
         <Image
           src={itemDetails.imagePath}
           alt="BMW 5 520 M Sport"
-          width={400}
-          height={200}
-          className="w-full h-48 object-cover rounded-lg"
+          width={250}
+          height={250}
+          className="h-44 object-contain rounded-lg"
         />
+        </div>
         <h1 className="text-2xl font-bold mt-4">{itemDetails.itemName}</h1>
         <div className="mt-4 bg-white rounded-lg p-4 shadow-sm">
           <div className="flex justify-between items-center">

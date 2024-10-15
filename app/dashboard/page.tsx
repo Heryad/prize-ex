@@ -144,14 +144,14 @@ export default function Home() {
         </div>
       </section>
       {/* Carousel Bar */}
-      <section className="embla h-36 w-screen mt-3" ref={emblaRef}>
+      <section className="embla h-44 w-screen mt-3" ref={emblaRef}>
         <div className="embla__container h-full">
           {bannerData[0].imagePath != '1' ? <>
             {bannerData.map((item, index) => {
             return (
               <div className="embla__slide w-screen" key={index}>
-                <div className="bg-white h-full flex justify-center items-center rounded-lg ml-4 mr-4">
-                  <Image src={item.imagePath} alt="0" width={200} height={100} className="w-full"/>
+                <div className="h-full flex justify-center items-center rounded-xl ml-4 mr-4">
+                  <Image src={item.imagePath} alt="0" width={200} height={100} className="w-full flex"/>
                 </div>
               </div>
             )
@@ -197,7 +197,7 @@ export default function Home() {
                         <span className="ml-auto bg-blue-500 text-white rounded-md p-1">0 Days</span>
                       </div>
                       <div className="flex justify-center" onClick={() => { handleNavigate(item._id) }}>
-                        <Image src={item.imagePath} alt="1" width={150} height={150} className="max-h-[150px] max-w-[150px] min-w-[150px] min-h-[150px]" onClick={() => { }} />
+                      <Image src={item.imagePath} alt="1" width={150} height={130} className="max-h-[130px] max-w-[200px] min-w-[180px] min-h-[130px]" onClick={() => { }} />
                       </div>
                       <div className="flex flex-col items-center">
                         <span className="text-center max-w-32 font-bold mb-1 mt-1">{item.itemName}</span>
@@ -229,7 +229,7 @@ export default function Home() {
                         <span className="ml-auto bg-blue-500 text-white rounded-md p-1">0 Days</span>
                       </div>
                       <div className="flex justify-center" onClick={() => { handleNavigate(item._id) }}>
-                        <Image src={item.imagePath} alt="1" width={150} height={150} className="max-h-[150px] max-w-[150px] min-w-[150px] min-h-[150px]" onClick={() => { }} />
+                        <Image src={item.imagePath} alt="1" width={150} height={130} className="max-h-[130px] max-w-[200px] min-w-[180px] min-h-[130px] object-contain" onClick={() => { }} />
                       </div>
                       <div className="flex flex-col items-center">
                         <span className="text-center max-w-32 font-bold mb-1 mt-1">{item.itemName}</span>
