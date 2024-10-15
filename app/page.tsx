@@ -16,6 +16,7 @@ export default function Home() {
     })
 
     if (typeof window !== "undefined") {
+      console.debug(WebApp.initDataUnsafe.user?.id);
       if (WebApp.initDataUnsafe.user) {
         const catResp = await fetch('/dashboard/api/Login', {
           method: 'POST',
