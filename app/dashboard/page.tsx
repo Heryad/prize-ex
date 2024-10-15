@@ -18,6 +18,7 @@ export default function Home() {
 
   const [emblaRef] = useEmblaCarousel({ loop: false }, [Autoplay()])
   const [isBarOpen, setIsBarOpen] = useState(false);
+  const [bannerData, setBannerData] = useState([{imagePath: '1'}])
 
   const [isLoading, setIsLoading] = useState(true);
   const [categoryData, setCategoryData] = useState([{ nameEN: '', imagePath: '' }]);
@@ -41,6 +42,10 @@ export default function Home() {
     const mLoginData = await loginResp.json();
     setUserName(mLoginData.data.userName);
     setUserBalance(mLoginData.data.userBalance);
+
+    const bannerResp = await fetch('dashboard/api/Banner')
+    const mBannerData = await bannerResp.json();
+    setBannerData(mBannerData);
 
     const catResp = await fetch('dashboard/api/Category')
     const mCatData = await catResp.json();
@@ -72,10 +77,10 @@ export default function Home() {
     mData = itemData.filter((itemData: { itemCategory: string; }) =>
       itemData.itemCategory.toLocaleLowerCase().includes(term.toLocaleLowerCase())
     )
-    if(filterEntry == 2){
+    if (filterEntry == 2) {
       setSearchData([{ imagePath: '', itemName: '', itemDate: '', itemPrice: '', itemSoldQuantity: '', _id: '', itemCategory: '' }])
       setFilterEntry(1);
-    }else{
+    } else {
       setSearchData(mData);
     }
   }
@@ -90,14 +95,14 @@ export default function Home() {
     })
     if (rs.status == 200) {
       const mCatData = await rs.json();
-      if(mCatData.msg == 'Balance Error'){
+      if (mCatData.msg == 'Balance Error') {
         toast('Balance Error : Enough amount not available')
         setIsBarOpen(false);
         setItemPrice(0);
         setItemIndex(0);
         setPurchaseLoading(false);
         setBasketData(1);
-      }else if(mCatData.msg == 'Quantity Error'){
+      } else if (mCatData.msg == 'Quantity Error') {
         toast('Quantity Error : Enough amount not available')
         setIsBarOpen(false);
         setItemPrice(0);
@@ -105,7 +110,7 @@ export default function Home() {
         setPurchaseLoading(false);
         setBasketData(1);
       }
-      else{
+      else {
         toast('Ticket Purchased Succesfully')
         setPurchaseLoading(false);
         setIsBarOpen(false);
@@ -125,6 +130,7 @@ export default function Home() {
     }
   }
 
+
   return (
     <div className='flex-col h-screen items-center overflow-auto bg-gray-100'>
       {/* Header Bar */}
@@ -140,17 +146,17 @@ export default function Home() {
       {/* Carousel Bar */}
       <section className="embla h-36 w-screen mt-3" ref={emblaRef}>
         <div className="embla__container h-full">
-          <div className="embla__slide w-screen">
-            <div className="bg-white h-full flex justify-center items-center rounded-lg ml-4 mr-4">
-              <span>one</span>
-            </div>
-          </div>
-
-          <div className="embla__slide w-screen">
-            <div className="bg-white h-full flex justify-center items-center rounded-lg ml-4 mr-4">
-              <span>two</span>
-            </div>
-          </div>
+          {bannerData[0].imagePath != '1' ? <>
+            {bannerData.map((item, index) => {
+            return (
+              <div className="embla__slide w-screen" key={index}>
+                <div className="bg-white h-full flex justify-center items-center rounded-lg ml-4 mr-4">
+                  <Image src={item.imagePath} alt="0" width={200} height={100} className="w-full"/>
+                </div>
+              </div>
+            )
+          })}
+          </>: <></>}
         </div>
       </section>
       {isLoading ?
@@ -160,13 +166,13 @@ export default function Home() {
         :
         <>
           {/* Categories Bar */}
-          <section className="flex flex-col w-screen mt-3">
+          <section className="flex flex-col w-screen mt-5">
             <span className="ml-4 font-bold">Categories</span>
 
             <ScrollArea className="w-full whitespace-nowrap rounded-md mt-3 overflow-hidden">
               <div className="flex w-max space-x-4 pl-4 pr-4 overflow-hidden">
                 {categoryData.map((item, index) => (
-                  <div key={index} className='w-[190px] bg-white rounded-lg' onClick={() => { handleSearch(item.nameEN)}}>
+                  <div key={index} className='w-[190px] bg-white rounded-lg' onClick={() => { handleSearch(item.nameEN) }}>
                     <span className="font-semibold mt-2 mb-2 ml-4 flex">{item.nameEN}</span>
                     <div className="flex w-full h-20 justify-center items-center">
                       <Image className="max-h-[120px] p-3" width={150} height={10} src={item.imagePath} alt="coin" />
@@ -178,7 +184,7 @@ export default function Home() {
             </ScrollArea>
           </section>
           {/* Items Banner */}
-          <section className={`flex flex-col w-screen mt-3 ${isBarOpen ? 'mb-20' : 'mb-2'}`}>
+          <section className={`flex flex-col w-screen mt-5 ${isBarOpen ? 'mb-20' : 'mb-2'}`}>
             <span className="ml-4 font-bold">Draws</span>
 
             <div className="grid grid-cols-2 ml-4 mr-4 mt-1">
@@ -209,7 +215,7 @@ export default function Home() {
                           <span className="text-[14px] text-gray-600">Tickets Sold : {item.itemSoldQuantity}%</span>
                           <Progress value={parseInt(item.itemSoldQuantity)} className="mt-1 h-2" />
 
-                          <Button className="mt-3 mb-2 rounded-lg bg-yellow-400 text-black font-bold" onClick={() => { setIsBarOpen(true); setItemPrice(parseInt(item.itemPrice)); setItemIndex(index)}}>Buy Ticket</Button>
+                          <Button className="mt-3 mb-2 rounded-lg bg-yellow-400 text-black font-bold" onClick={() => { setIsBarOpen(true); setItemPrice(parseInt(item.itemPrice)); setItemIndex(index) }}>Buy Ticket</Button>
                         </div>
                       </div>
                     </div>
@@ -241,7 +247,7 @@ export default function Home() {
                           <span className="text-[14px] text-gray-600">Tickets Sold : {item.itemSoldQuantity}%</span>
                           <Progress value={parseInt(item.itemSoldQuantity)} className="mt-1 h-2" />
 
-                          <Button className="mt-3 mb-2 rounded-lg bg-yellow-400 text-black font-bold" onClick={() => { setIsBarOpen(true); setItemPrice(parseInt(item.itemPrice)); setItemIndex(index)}}>Buy Ticket</Button>
+                          <Button className="mt-3 mb-2 rounded-lg bg-yellow-400 text-black font-bold" onClick={() => { setIsBarOpen(true); setItemPrice(parseInt(item.itemPrice)); setItemIndex(index) }}>Buy Ticket</Button>
                         </div>
                       </div>
                     </div>
@@ -263,7 +269,7 @@ export default function Home() {
           </div>
           <span className="font-bold text-2xl ml-auto mr-4">{itemPrice * basketData} $</span>
 
-          <Button className="bg-white text-black rounded-xl h-10 font-semibold" onClick={() => {insertTicket()}}>
+          <Button className="bg-white text-black rounded-xl h-10 font-semibold hover:bg-white" onClick={() => { insertTicket() }}>
             {purchaseLoading ? <ProgressIndicator /> : 'Purchase'}
           </Button>
         </div>

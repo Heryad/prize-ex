@@ -59,7 +59,7 @@ export default function TopUpBalance() {
   }, [isRunning, time])
 
   const checkTRX = () => {
-    fetch('https://apilist.tronscanapi.com/api/transfer/trc20?address=TRJjoDQoyXMKK9GJtGLWT93NeujESs7DKF&trc20Id=TR7NHqjeKQxGTCi8q8ZY4pL8otSzgjLj6t&start=0&limit=10&direction=0&reverse=true&db_version=1')
+    fetch('https://apilist.tronscanapi.com/api/transfer/trc20?address=TL5KZLwnieujatuFG5rmB6Xk4ajMCnBen4&trc20Id=TR7NHqjeKQxGTCi8q8ZY4pL8otSzgjLj6t&start=0&limit=10&direction=0&reverse=true&db_version=1')
       .then(response => {
         if (!response.ok) {
           throw new Error('Network response was not ok')
@@ -78,6 +78,8 @@ export default function TopUpBalance() {
     const depositFromServer = myData.data[0].amount / 1000000;
     console.log(depositFromServer);
     if (depositFromServer == amount) {
+      setIsRunning(false);
+      toast('Payment is processing, waiting for blockchain confirmation')
       insertPayment();
     }
   }
@@ -96,22 +98,25 @@ export default function TopUpBalance() {
       body: JSON.stringify({ methodName: 'USDT-TRC20', paymentAmount: amount, userID: localStorage.getItem('userID'), paymentDate: formattedDate, userName: localStorage.getItem('userName'), paymentStatus: 'accepted' })
     })
     if (rs.status == 200) {
-      fetch('../../api/Payment', {
-        method: 'UPDATE',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ userID: localStorage.getItem('userID'), paymentAmount: amount })
-      }).then(response => response.json())
-        .then(data => {
-          setIsRunning(false);
-          setAmount(0);
-          console.log(data);
-          toast('Payment Succesful, Please Check your new balance', {
-            onClose: () => {
-              router.back();
-            }
-          })
-        });
+      testAPA();
     }
+  }
+
+  const testAPA = () => {
+    fetch('/dashboard/api/Balance', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ userID: localStorage.getItem('userID'), paymentAmount: amount })
+    }).then(response => response.json())
+      .then(data => {
+        setAmount(0);
+        console.log(data);
+        toast('Payment Succesful, Please Check your new balance', {
+          onClose: () => {
+            router.back();
+          }
+        })
+    });
   }
 
   return (
@@ -148,7 +153,7 @@ export default function TopUpBalance() {
 
           <Image src={wallet} alt='' width={150} height={150} className='self-center mt-5' />
           <div className='flex flex-row justify-center items-center bg-gray-200 p-4 rounded-lg'>
-            <span className='text-center text-sm'>TBXSuEEDjp8JdgXTtzJGaYx7qNq5h1KJrP</span>
+            <span className='text-center text-sm'>TL5KZLwnieujatuFG5rmB6Xk4ajMCnBen4</span>
             <Clipboard className='ml-2 bg-blue-500 rounded-xl p-2 text-blue-100' size={35} />
           </div>
         </div>
