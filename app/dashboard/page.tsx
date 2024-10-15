@@ -39,8 +39,8 @@ export default function Home() {
       body: JSON.stringify({ telegramID: localStorage.getItem('userID') })
     });
     const mLoginData = await loginResp.json();
-    setUserName(mLoginData.data[0].userName);
-    setUserBalance(mLoginData.data[0].userBalance);
+    setUserName(mLoginData.data.userName);
+    setUserBalance(mLoginData.data.userBalance);
 
     const catResp = await fetch('dashboard/api/Category')
     const mCatData = await catResp.json();
@@ -119,8 +119,8 @@ export default function Home() {
           body: JSON.stringify({ telegramID: localStorage.getItem('userID') })
         });
         const mLoginData = await loginResp.json();
-        setUserName(mLoginData.data[0].userName);
-        setUserBalance(mLoginData.data[0].userBalance);
+        setUserName(mLoginData.data.userName);
+        setUserBalance(mLoginData.data.userBalance);
       }
     }
   }

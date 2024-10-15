@@ -20,12 +20,12 @@ export default function Home() {
         const catResp = await fetch('/dashboard/api/Login', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ telegramID: WebApp.initDataUnsafe.user?.id, userName: WebApp.initDataUnsafe.user?.username, userFirstName: WebApp.initDataUnsafe.user?.first_name, registerDate: formattedDate, userBalance: '0',  invitedBy: WebApp.initDataUnsafe?.start_param})
+          body: JSON.stringify({ telegramID: WebApp.initDataUnsafe.user?.id, userName: WebApp.initDataUnsafe.user?.username, userFirstName: WebApp.initDataUnsafe.user?.first_name, registerDate: formattedDate, userBalance: '0', invitedBy: WebApp.initDataUnsafe?.start_param || ''})
         });
-        if(catResp != null){
+        if (catResp != null) {
           const mCatData = await catResp.json();
-          localStorage.setItem('userID', mCatData.data[0].telegramID);
-          localStorage.setItem('userName', mCatData.data[0].userFirstName);
+          localStorage.setItem('userID', mCatData.data.telegramID);
+          localStorage.setItem('userName', mCatData.data.userFirstName);
           router.push('/dashboard')
         }
       }
@@ -38,7 +38,7 @@ export default function Home() {
 
   return (
     <div className='h-screen flex flex-col justify-center items-center'>
-      <span className="font-bold text-2xl mt-auto">PRIZE-EX</span>
+      <span className="font-bold text-2xl mt-auto">PRIZEX</span>
       <ProgressIndicator className='mt-auto mb-10' size={30} />
     </div>
   );
