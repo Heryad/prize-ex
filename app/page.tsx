@@ -39,7 +39,7 @@ export default function Home() {
 
   return (
     <div className='h-screen flex flex-col justify-center items-center'>
-      <span className="font-bold text-2xl mt-auto">PRIZEX</span>
+      <span className="font-bold text-2xl mt-auto">PRIZE-X</span>
       <ProgressIndicator className='mt-auto mb-10' size={30} />
     </div>
   );
