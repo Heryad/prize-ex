@@ -18,7 +18,7 @@ export default function Home() {
 
   const [emblaRef] = useEmblaCarousel({ loop: false }, [Autoplay()])
   const [isBarOpen, setIsBarOpen] = useState(false);
-  const [bannerData, setBannerData] = useState([{ imagePath: '1' }])
+  const [bannerData, setBannerData] = useState([{ imagePath: '' }])
 
   const [isLoading, setIsLoading] = useState(true);
   const [categoryData, setCategoryData] = useState([{ nameEN: '', imagePath: '' }]);
