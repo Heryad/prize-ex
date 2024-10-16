@@ -80,6 +80,27 @@ function ContestPage() {
     alert('item added to bookmark')
   }
 
+  const convertDays = (daysLeft: string) => {
+    const date = new Date()
+
+    const serverMonth = daysLeft.substring(3, 5);
+    const currentMonth = date.toLocaleDateString('en-US', {
+      month: '2-digit'
+    })
+
+    const serverDay = daysLeft.substring(0, 2);
+    const currentDay = date.toLocaleDateString('en-US', {
+      day: '2-digit'
+    })
+
+    if (currentMonth == serverMonth) {
+      return parseInt(serverDay) - parseInt(currentDay);
+    }else{
+      const monthToDay = parseInt(serverMonth) - parseInt(currentMonth);
+      return monthToDay * 30 + parseInt(serverDay) - parseInt(currentDay);
+    } 
+  }
+
   return (
     <div className="h-screen flex-col items-center overflow-auto bg-gray-100">
       <header className="flex justify-between w-screen items-center p-4">
@@ -100,7 +121,7 @@ function ContestPage() {
         <div className="mt-4 bg-white rounded-lg p-4 shadow-sm">
           <div className="flex justify-between items-center">
             <div className="text-orange-500 font-semibold">Continuing</div>
-            <div className="text-gray-500">Days left</div>
+            <div className="text-gray-500">Days left {convertDays(itemDetails.itemDate)}</div>
           </div>
           <div className="mt-2 h-2 bg-orange-200 rounded-full">
             <Progress value={10} className="mt-1 h-2" />

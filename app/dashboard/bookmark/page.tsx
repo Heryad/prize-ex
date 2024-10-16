@@ -25,7 +25,7 @@ export default function Bookmark() {
   }, [])
 
   return (
-    <div className='h-screen flex flex-col items-center'>
+    <div className='h-screen flex flex-col items-center bg-gray-100'>
       <section className='flex flex-col w-screen mt-3'>
         <span className="ml-4 font-bold">Bookmarks</span>
 
@@ -41,7 +41,7 @@ export default function Bookmark() {
                 <span className="ml-auto bg-blue-500 text-white rounded-md p-1">42 Days</span>
               </div>
               <div className="flex justify-center" onClick={() => {  }}>
-                <Image src={itemData[0].imagePath} alt="1" width={150} height={150} className="max-h-[150px] max-w-[150px] min-w-[150px] min-h-[150px]" onClick={() => { }} />
+                <Image src={itemData[0].imagePath} alt="1" width={150} height={130} className="max-h-[130px] max-w-[200px] min-w-[180px] min-h-[130px] object-contain" onClick={() => { }} />
               </div>
               <div className="flex flex-col items-center">
                 <span className="text-center max-w-32 font-bold mb-1 mt-1">{itemData[0].itemName}</span>

@@ -18,7 +18,7 @@ export default function Home() {
 
   const [emblaRef] = useEmblaCarousel({ loop: false }, [Autoplay()])
   const [isBarOpen, setIsBarOpen] = useState(false);
-  const [bannerData, setBannerData] = useState([{imagePath: '1'}])
+  const [bannerData, setBannerData] = useState([{ imagePath: '1' }])
 
   const [isLoading, setIsLoading] = useState(true);
   const [categoryData, setCategoryData] = useState([{ nameEN: '', imagePath: '' }]);
@@ -130,6 +130,26 @@ export default function Home() {
     }
   }
 
+  const convertDays = (daysLeft: string) => {
+    const date = new Date()
+
+    const serverMonth = daysLeft.substring(3, 5);
+    const currentMonth = date.toLocaleDateString('en-US', {
+      month: '2-digit'
+    })
+
+    const serverDay = daysLeft.substring(0, 2);
+    const currentDay = date.toLocaleDateString('en-US', {
+      day: '2-digit'
+    })
+
+    if (currentMonth == serverMonth) {
+      return parseInt(serverDay) - parseInt(currentDay);
+    }else{
+      const monthToDay = parseInt(serverMonth) - parseInt(currentMonth);
+      return monthToDay * 30 + parseInt(serverDay) - parseInt(currentDay);
+    } 
+  }
 
   return (
     <div className='flex-col h-screen items-center overflow-auto bg-gray-100'>
@@ -146,17 +166,17 @@ export default function Home() {
       {/* Carousel Bar */}
       <section className="embla h-44 w-screen mt-3" ref={emblaRef}>
         <div className="embla__container h-full">
-          {bannerData[0].imagePath != '1' ? <>
+          {bannerData.length >= 1 ? <>
             {bannerData.map((item, index) => {
-            return (
-              <div className="embla__slide w-screen" key={index}>
-                <div className="h-full flex justify-center items-center rounded-xl ml-4 mr-4">
-                  <Image src={item.imagePath} alt="0" width={200} height={100} className="w-full flex"/>
+              return (
+                <div className="embla__slide w-screen" key={index}>
+                  <div className="h-full flex justify-center items-center rounded-xl ml-4 mr-4">
+                    <Image src={item.imagePath} alt="0" width={200} height={100} className="w-full flex" />
+                  </div>
                 </div>
-              </div>
-            )
-          })}
-          </>: <></>}
+              )
+            })}
+          </> : <></>}
         </div>
       </section>
       {isLoading ?
@@ -194,10 +214,10 @@ export default function Home() {
                     <div className="bg-white rounded-lg m-2" key={index}>
                       <div className="flex flex-row p-3 items-center">
                         <span className="text-md text-gray-600">Days Left</span>
-                        <span className="ml-auto bg-blue-500 text-white rounded-md p-1">0 Days</span>
+                        <span className="ml-auto bg-blue-500 text-white rounded-md p-1">{convertDays(item.itemDate)} Days</span>
                       </div>
                       <div className="flex justify-center" onClick={() => { handleNavigate(item._id) }}>
-                      <Image src={item.imagePath} alt="1" width={150} height={130} className="max-h-[130px] max-w-[200px] min-w-[180px] min-h-[130px]" onClick={() => { }} />
+                        <Image src={item.imagePath} alt="1" width={150} height={130} className="max-h-[130px] max-w-[200px] min-w-[180px] min-h-[130px] object-contain" onClick={() => { }} />
                       </div>
                       <div className="flex flex-col items-center">
                         <span className="text-center max-w-32 font-bold mb-1 mt-1">{item.itemName}</span>
@@ -226,7 +246,7 @@ export default function Home() {
                     <div className="bg-white rounded-lg m-2" key={index}>
                       <div className="flex flex-row p-3 items-center">
                         <span className="text-md text-gray-600">Days Left</span>
-                        <span className="ml-auto bg-blue-500 text-white rounded-md p-1">0 Days</span>
+                        <span className="ml-auto bg-blue-500 text-white rounded-md p-1">{convertDays(item.itemDate)} Days</span>
                       </div>
                       <div className="flex justify-center" onClick={() => { handleNavigate(item._id) }}>
                         <Image src={item.imagePath} alt="1" width={150} height={130} className="max-h-[130px] max-w-[200px] min-w-[180px] min-h-[130px] object-contain" onClick={() => { }} />
