@@ -81,7 +81,8 @@ function ContestPage() {
   }
 
   const convertDays = (daysLeft: string) => {
-    const date = new Date()
+    if(daysLeft != ''){
+      const date = new Date()
 
     const serverMonth = daysLeft.substring(3, 5);
     const currentMonth = date.toLocaleDateString('en-US', {
@@ -95,10 +96,13 @@ function ContestPage() {
 
     if (currentMonth == serverMonth) {
       return parseInt(serverDay) - parseInt(currentDay);
-    }else{
+    } else {
       const monthToDay = parseInt(serverMonth) - parseInt(currentMonth);
       return monthToDay * 30 + parseInt(serverDay) - parseInt(currentDay);
-    } 
+    }
+    }else{
+      return 0
+    }
   }
 
   return (
@@ -119,12 +123,15 @@ function ContestPage() {
         </div>
         <h1 className="text-2xl font-bold mt-4">{itemDetails.itemName}</h1>
         <div className="mt-4 bg-white rounded-lg p-4 shadow-sm">
-          <div className="flex justify-between items-center">
+          {convertDays(itemDetails.itemDate) == 0 ? <></> : 
+          <>
+                      <div className="flex justify-between items-center">
             <div className="text-orange-500 font-semibold">Continuing</div>
-            <div className="text-gray-500">Days left {convertDays(itemDetails.itemDate)}</div>
+            <div className="text-gray-500">Days left : {convertDays(itemDetails.itemDate)}</div>
           </div>
+          </>}
           <div className="mt-2 h-2 bg-orange-200 rounded-full">
-            <Progress value={10} className="mt-1 h-2" />
+          <Progress value={parseInt(itemDetails.itemSoldQuantity)} className="mt-1 h-2" />
           </div>
           <div className="flex justify-between mt-2 text-sm">
             <div>Applicants: {itemDetails.itemSoldQuantity}</div>

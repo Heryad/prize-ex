@@ -131,7 +131,8 @@ export default function Home() {
   }
 
   const convertDays = (daysLeft: string) => {
-    const date = new Date()
+    if(daysLeft != ''){
+      const date = new Date()
 
     const serverMonth = daysLeft.substring(3, 5);
     const currentMonth = date.toLocaleDateString('en-US', {
@@ -145,10 +146,13 @@ export default function Home() {
 
     if (currentMonth == serverMonth) {
       return parseInt(serverDay) - parseInt(currentDay);
-    }else{
+    } else {
       const monthToDay = parseInt(serverMonth) - parseInt(currentMonth);
       return monthToDay * 30 + parseInt(serverDay) - parseInt(currentDay);
-    } 
+    }
+    }else{
+      return 0
+    }
   }
 
   return (
@@ -163,28 +167,28 @@ export default function Home() {
           <Plus size={35} className="p-1 bg-gray-200 rounded-full" onClick={() => { router.push('dashboard/payment') }} />
         </div>
       </section>
-      {/* Carousel Bar */}
-      <section className="embla h-44 w-screen mt-3" ref={emblaRef}>
-        <div className="embla__container h-full">
-          {bannerData.length >= 1 ? <>
-            {bannerData.map((item, index) => {
-              return (
-                <div className="embla__slide w-screen" key={index}>
-                  <div className="h-full flex justify-center items-center rounded-xl ml-4 mr-4">
-                    <Image src={item.imagePath} alt="0" width={200} height={100} className="w-full flex" />
-                  </div>
-                </div>
-              )
-            })}
-          </> : <></>}
-        </div>
-      </section>
       {isLoading ?
         <div className="flex justify-center items-center mt-12">
           <ProgressIndicator className='mt-auto mb-10' size={30} />
         </div>
         :
         <>
+          {/* Carousel Bar */}
+          <section className="embla h-44 w-screen mt-3" ref={emblaRef}>
+            <div className="embla__container h-full">
+              {bannerData.length >= 1 ? <>
+                {bannerData.map((item, index) => {
+                  return (
+                    <div className="embla__slide w-screen" key={index}>
+                      <div className="h-full flex justify-center items-center rounded-xl ml-4 mr-4">
+                        <Image src={item.imagePath} alt="0" width={200} height={100} className="w-full flex" />
+                      </div>
+                    </div>
+                  )
+                })}
+              </> : <></>}
+            </div>
+          </section>
           {/* Categories Bar */}
           <section className="flex flex-col w-screen mt-5">
             <span className="ml-4 font-bold">Categories</span>
@@ -211,13 +215,16 @@ export default function Home() {
               {searchData[0].imagePath != '' ?
                 <>
                   {searchData.map((item, index) => (
-                    <div className="bg-white rounded-lg m-2" key={index}>
-                      <div className="flex flex-row p-3 items-center">
+                    <div className="flex flex-col bg-white rounded-lg m-2 justify-center" key={index}>
+                      {convertDays(item.itemDate) == 0 ? <></> : 
+                      <>
+                        <div className="flex flex-row p-3 items-center">
                         <span className="text-md text-gray-600">Days Left</span>
-                        <span className="ml-auto bg-blue-500 text-white rounded-md p-1">{convertDays(item.itemDate)} Days</span>
+                        <span className="ml-auto bg-blue-500 text-white rounded-md p-1">{convertDays(item.itemDate).toString().replace('-', '')} Days</span>
                       </div>
+                      </>}
                       <div className="flex justify-center" onClick={() => { handleNavigate(item._id) }}>
-                        <Image src={item.imagePath} alt="1" width={150} height={130} className="max-h-[130px] max-w-[200px] min-w-[180px] min-h-[130px] object-contain" onClick={() => { }} />
+                        <Image src={item.imagePath} alt="1" width={140} height={130} className="max-h-[130px] max-w-[170px] min-w-[170px] min-h-[130px] object-contain" onClick={() => { }} />
                       </div>
                       <div className="flex flex-col items-center">
                         <span className="text-center max-w-32 font-bold mb-1 mt-1">{item.itemName}</span>
@@ -229,7 +236,7 @@ export default function Home() {
                         </div>
                         <div className="flex flex-row w-full pl-3 pr-3 items-center mt-1">
                           <span className="text-[14px] text-gray-600">Event Time :</span>
-                          <span className="ml-auto font-bold text-sm">{item.itemDate}</span>
+                          <span className="ml-auto font-bold text-[13px]">{item.itemDate}</span>
                         </div>
                         <div className="flex flex-col w-full pl-3 pr-3 mt-2">
                           <span className="text-[14px] text-gray-600">Tickets Sold : {item.itemSoldQuantity}%</span>
@@ -243,13 +250,16 @@ export default function Home() {
                 </> :
                 <>
                   {itemData.map((item, index) => (
-                    <div className="bg-white rounded-lg m-2" key={index}>
-                      <div className="flex flex-row p-3 items-center">
+                    <div className="flex flex-col bg-white rounded-lg m-2 justify-center" key={index}>
+                      {convertDays(item.itemDate) == 0 ? <></> : 
+                      <>
+                        <div className="flex flex-row p-3 items-center">
                         <span className="text-md text-gray-600">Days Left</span>
-                        <span className="ml-auto bg-blue-500 text-white rounded-md p-1">{convertDays(item.itemDate)} Days</span>
+                        <span className="ml-auto bg-blue-500 text-white rounded-md p-1">{convertDays(item.itemDate).toString().replace('-', '')} Days</span>
                       </div>
+                      </>}
                       <div className="flex justify-center" onClick={() => { handleNavigate(item._id) }}>
-                        <Image src={item.imagePath} alt="1" width={150} height={130} className="max-h-[130px] max-w-[200px] min-w-[180px] min-h-[130px] object-contain" onClick={() => { }} />
+                        <Image src={item.imagePath} alt="1" width={140} height={130} className="max-h-[130px] max-w-[170px] min-w-[170px] min-h-[130px] object-contain" onClick={() => { }} />
                       </div>
                       <div className="flex flex-col items-center">
                         <span className="text-center max-w-32 font-bold mb-1 mt-1">{item.itemName}</span>
@@ -261,7 +271,7 @@ export default function Home() {
                         </div>
                         <div className="flex flex-row w-full pl-3 pr-3 items-center mt-1">
                           <span className="text-[14px] text-gray-600">Event Time :</span>
-                          <span className="ml-auto font-bold text-sm">{item.itemDate}</span>
+                          <span className="ml-auto font-bold text-[13px]">{item.itemDate}</span>
                         </div>
                         <div className="flex flex-col w-full pl-3 pr-3 mt-2">
                           <span className="text-[14px] text-gray-600">Tickets Sold : {item.itemSoldQuantity}%</span>
