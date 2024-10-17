@@ -127,7 +127,7 @@ function ContestPage() {
           <>
                       <div className="flex justify-between items-center">
             <div className="text-orange-500 font-semibold">Continuing</div>
-            <div className="text-gray-500">Days left : {convertDays(itemDetails.itemDate)}</div>
+            <div className="text-gray-500">Days left : {convertDays(itemDetails.itemDate).toString().replace('-', '')}</div>
           </div>
           </>}
           <div className="mt-2 h-2 bg-orange-200 rounded-full">
