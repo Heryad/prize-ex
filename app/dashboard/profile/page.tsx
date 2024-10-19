@@ -1,5 +1,5 @@
 'use client'
-import { Bell, BellDot, ChevronRight, FileQuestion, Languages, LucideShoppingBasket, Plus } from "lucide-react";
+import { Bell, BellDot, ChevronRight, FileQuestion, Languages, LucideShoppingBasket, Plus, X } from "lucide-react";
 import Image from "next/image";
 import coin from '@/img/coin.png'
 import { Button } from "@/components/ui/button";
@@ -7,9 +7,16 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import copylink from '@/img/copylink.png'
+import facebook from '@/img/facebook.png'
+import twitter from '@/img/twitter.png'
+import whatsapp from '@/img/whatsapp.png'
 
 export default function Component() {
   const router = useRouter();
+
+  const [isBarOpen, setIsBarOpen] = useState(false);
+  const [teamBar, setTeamBar] = useState(false);
 
   //User Profile
   const [userName, setUserName] = useState('N/A');
@@ -62,7 +69,9 @@ export default function Component() {
 
         <div className="flex flex-row ml-4 mr-4 mt-4 bg-green-300 p-5 rounded-xl items-center">
           <span className="text-lg">Invite Your Friends<br />and earn<span className="font-bold text-xl"> 2 $</span></span>
-          <Button className="ml-auto text-black bg-white rounded-full p-5" onClick={() => {shareLink();}}>Invite</Button>
+          <Button className="ml-auto text-black bg-white rounded-full p-5 hover:bg-white" onClick={() => {setIsBarOpen(true)}}>Invite</Button>
+          <Button className="ml-2 text-black bg-white rounded-full p-5 hover:bg-white" onClick={() => {setTeamBar(true)}}>My Team</Button>
+
         </div>
       </section>
       {/* Settings Bar */}
@@ -93,6 +102,39 @@ export default function Component() {
           <ChevronRight color="gray" className="ml-auto" />
         </button>
       </section>
+
+      <div className="fixed h-36 bottom-[72px] left-0 right-0 shadow-[0px_-70px_50px_18px_rgba(204,204,204,0.86)] bg-white text-primary-foreground border-none p-3 rounded-t-lg z-50" hidden={!isBarOpen}>
+        <X color="black" className="ml-auto" onClick={() => {setIsBarOpen(false)}}/>
+        <div className="flex h-32 flex-row gap-7 justify-center items-center">
+          <span className="justify-center items-center flex flex-col p-1 text-black" onClick={() => {shareLink();}}>
+            <Image src={copylink} alt="" width={50} height={50}/>
+            Copy Link
+          </span>
+          
+          <span className="justify-center items-center flex flex-col p-1 text-black" onClick={() => {shareLink();}}>
+            <Image src={whatsapp} alt="" width={50} height={50}/>
+            Whatsapp
+          </span>
+
+          <span className="justify-center items-center flex flex-col p-1 text-black" onClick={() => {shareLink();}}>
+            <Image src={facebook} alt="" width={50} height={50}/>
+            Facebook
+          </span>
+
+          <span className="justify-center items-center flex flex-col p-1 text-black" onClick={() => {shareLink();}}>
+            <Image src={twitter} alt="" width={50} height={50}/>
+            X
+          </span>
+        </div>
+      </div>
+
+      <div className="fixed h-[550px] bottom-[70px] left-0 right-0 shadow-[0px_-70px_50px_18px_rgba(204,204,204,0.86)] bg-white text-primary-foreground border-none p-3 rounded-t-lg z-50" hidden={!teamBar}>
+        <X color="black" className="ml-auto" onClick={() => {setTeamBar(false)}}/>
+        <span className="flex text-black justify-center pt-2 font-bold text-lg">My Team</span>
+        <div className="flex flex-row gap-7 justify-center items-center">
+          
+        </div>
+      </div>
       <ToastContainer />
     </div>
   )
