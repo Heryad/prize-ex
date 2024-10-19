@@ -63,7 +63,7 @@ export default function MyTickets() {
                     </section> : <></>}
 
                     <section className="flex flex-row w-full mt-4">
-                      <div className="bg-gray-100 rounded-md ml-2 w-52 h-42 justify-center content-center">
+                      <div className="bg-white rounded-md ml-2 w-52 h-42 justify-center content-center">
                         <Image alt="edde" src={item.itemImage} width={130} height={130} />
                       </div>
                       <div className="flex flex-col w-full">
@@ -102,7 +102,7 @@ export default function MyTickets() {
             : resultData.length >= 1 ? <section className="mt-6 mb-3">
               {resultData.map((item, index) => (
                 <div className="flex flex-row bg-white mr-4 ml-4 mt-3 p-2 rounded-lg justify-center items-center" key={index}>
-                  <div className="bg-gray-100 rounded-md ml-2 w-52 h-42 justify-center content-center">
+                  <div className="bg-white rounded-md ml-2 w-52 h-42 justify-center content-center">
                     <Image alt="edde" src={item.imagePath} width={130} height={130} />
                   </div>
                   <div className="flex flex-col w-full">

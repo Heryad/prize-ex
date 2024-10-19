@@ -8,9 +8,9 @@ import { useEffect, useState } from "react";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import copylink from '@/img/copylink.png'
-import facebook from '@/img/facebook.png'
 import twitter from '@/img/twitter.png'
 import whatsapp from '@/img/whatsapp.png'
+import telegram from '@/img/telegram.png'
 
 export default function Component() {
   const router = useRouter();
@@ -36,6 +36,10 @@ export default function Component() {
   const shareLink = async() => {
     navigator.clipboard.writeText('https://t.me/PrizeX_Game_Bot/prz?startapp=' + localStorage.getItem('userID'));
     toast('Invite Link Copied To Clipboard');
+  }
+
+  const getShareLink = () => {
+    return 'https://t.me/PrizeX_Game_Bot/prz?startapp=' + localStorage.getItem('userID');
   }
 
   useEffect(() => {
@@ -105,25 +109,25 @@ export default function Component() {
 
       <div className="fixed h-36 bottom-[72px] left-0 right-0 shadow-[0px_-70px_50px_18px_rgba(204,204,204,0.86)] bg-white text-primary-foreground border-none p-3 rounded-t-lg z-50" hidden={!isBarOpen}>
         <X color="black" className="ml-auto" onClick={() => {setIsBarOpen(false)}}/>
-        <div className="flex h-32 flex-row gap-7 justify-center items-center">
+        <div className="flex h-32 gap-6   flex-row overflow-auto justify-center items-center">
           <span className="justify-center items-center flex flex-col p-1 text-black" onClick={() => {shareLink();}}>
             <Image src={copylink} alt="" width={50} height={50}/>
             Copy Link
           </span>
           
-          <span className="justify-center items-center flex flex-col p-1 text-black" onClick={() => {shareLink();}}>
+          <span className="justify-center items-center flex flex-col p-1 text-black" onClick={() => {window.location.replace('https://wa.me/?text=' + getShareLink())}}>
             <Image src={whatsapp} alt="" width={50} height={50}/>
             Whatsapp
           </span>
 
-          <span className="justify-center items-center flex flex-col p-1 text-black" onClick={() => {shareLink();}}>
-            <Image src={facebook} alt="" width={50} height={50}/>
-            Facebook
-          </span>
-
-          <span className="justify-center items-center flex flex-col p-1 text-black" onClick={() => {shareLink();}}>
+          <span className="justify-center items-center flex flex-col p-1 text-black" onClick={() => {window.location.replace('http://twitter.com/share?text=Join%20PrizeX%20Now&url=' + getShareLink() + '&hashtags=PrizeX')}}>
             <Image src={twitter} alt="" width={50} height={50}/>
             X
+          </span>
+
+          <span className="justify-center items-center flex flex-col p-1 text-black" onClick={() => {window.location.replace('https://t.me/share/url?url=' + getShareLink())}}>
+            <Image src={telegram} alt="" width={50} height={50}/>
+            Telegram
           </span>
         </div>
       </div>

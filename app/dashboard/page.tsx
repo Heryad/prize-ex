@@ -22,8 +22,8 @@ export default function Home() {
 
   const [isLoading, setIsLoading] = useState(true);
   const [categoryData, setCategoryData] = useState([{ nameEN: '', imagePath: '' }]);
-  const [itemData, setItemData] = useState([{ imagePath: '', itemName: '', itemDate: '', itemPrice: '', itemSoldQuantity: '', _id: '', itemCategory: '' }]);
-  const [searchData, setSearchData] = useState([{ imagePath: '', itemName: '', itemDate: '', itemPrice: '', itemSoldQuantity: '', _id: '', itemCategory: '' }]);
+  const [itemData, setItemData] = useState([{ imagePath: '', itemName: '', itemDate: '', itemPrice: '', itemSoldQuantity: '', _id: '', itemCategory: '', itemQuantity: '' }]);
+  const [searchData, setSearchData] = useState([{ imagePath: '', itemName: '', itemDate: '', itemPrice: '', itemSoldQuantity: '', _id: '', itemCategory: '', itemQuantity: '' }]);
   const [basketData, setBasketData] = useState(1);
   const [filterEntry, setFilterEntry] = useState(1);
   const [itemPrice, setItemPrice] = useState(0);
@@ -78,7 +78,7 @@ export default function Home() {
       itemData.itemCategory.toLocaleLowerCase().includes(term.toLocaleLowerCase())
     )
     if (filterEntry == 2) {
-      setSearchData([{ imagePath: '', itemName: '', itemDate: '', itemPrice: '', itemSoldQuantity: '', _id: '', itemCategory: '' }])
+      setSearchData([{ imagePath: '', itemName: '', itemDate: '', itemPrice: '', itemSoldQuantity: '', _id: '', itemCategory: '', itemQuantity: '' }])
       setFilterEntry(1);
     } else {
       setSearchData(mData);
@@ -153,6 +153,11 @@ export default function Home() {
     }else{
       return 0
     }
+  }
+
+  const calculatePercentage = (itemQuantity: string, itemSoldQuantity: string) => {
+    const mPercent = parseInt(itemSoldQuantity) / parseInt(itemQuantity) * 100;
+    return mPercent.toFixed();
   }
 
   return (
@@ -239,8 +244,8 @@ export default function Home() {
                           <span className="ml-auto font-bold text-[13px]">{item.itemDate}</span>
                         </div>
                         <div className="flex flex-col w-full pl-3 pr-3 mt-2">
-                          <span className="text-[14px] text-gray-600">Tickets Sold : {item.itemSoldQuantity}%</span>
-                          <Progress value={parseInt(item.itemSoldQuantity)} className="mt-1 h-2" />
+                        <span className="text-[14px] text-gray-600">Tickets Sold : {calculatePercentage(item.itemQuantity, item.itemSoldQuantity)}%</span>
+                          <Progress value={parseInt(calculatePercentage(item.itemQuantity, item.itemSoldQuantity))} className="mt-1 h-2" />
 
                           <Button className="mt-3 mb-2 rounded-lg bg-yellow-400 text-black font-bold" onClick={() => { setIsBarOpen(true); setItemPrice(parseInt(item.itemPrice)); setItemIndex(index) }}>Buy Ticket</Button>
                         </div>
@@ -274,8 +279,8 @@ export default function Home() {
                           <span className="ml-auto font-bold text-[13px]">{item.itemDate}</span>
                         </div>
                         <div className="flex flex-col w-full pl-3 pr-3 mt-2">
-                          <span className="text-[14px] text-gray-600">Tickets Sold : {item.itemSoldQuantity}%</span>
-                          <Progress value={parseInt(item.itemSoldQuantity)} className="mt-1 h-2" />
+                          <span className="text-[14px] text-gray-600">Tickets Sold : {calculatePercentage(item.itemQuantity, item.itemSoldQuantity)}%</span>
+                          <Progress value={parseInt(calculatePercentage(item.itemQuantity, item.itemSoldQuantity))} className="mt-1 h-2" />
 
                           <Button className="mt-3 mb-2 rounded-lg bg-yellow-400 text-black font-bold" onClick={() => { setIsBarOpen(true); setItemPrice(parseInt(item.itemPrice)); setItemIndex(index) }}>Buy Ticket</Button>
                         </div>

@@ -105,6 +105,11 @@ function ContestPage() {
     }
   }
 
+  const calculatePercentage = (itemQuantity: string, itemSoldQuantity: string) => {
+    const mPercent = parseInt(itemSoldQuantity) / parseInt(itemQuantity) * 100;
+    return mPercent.toFixed();
+  }
+
   return (
     <div className="h-screen flex-col items-center overflow-auto bg-gray-100">
       <header className="flex justify-between w-screen items-center p-4">
@@ -125,13 +130,13 @@ function ContestPage() {
         <div className="mt-4 bg-white rounded-lg p-4 shadow-sm">
           {convertDays(itemDetails.itemDate) == 0 ? <></> : 
           <>
-                      <div className="flex justify-between items-center">
+            <div className="flex justify-between items-center">
             <div className="text-orange-500 font-semibold">Continuing</div>
             <div className="text-gray-500">Days left : {convertDays(itemDetails.itemDate).toString().replace('-', '')}</div>
           </div>
           </>}
           <div className="mt-2 h-2 bg-orange-200 rounded-full">
-          <Progress value={parseInt(itemDetails.itemSoldQuantity)} className="mt-1 h-2" />
+          <Progress value={parseInt(calculatePercentage(itemDetails.itemQuantity, itemDetails.itemSoldQuantity))} className="mt-1 h-2" />
           </div>
           <div className="flex justify-between mt-2 text-sm">
             <div>Applicants: {itemDetails.itemSoldQuantity}</div>
