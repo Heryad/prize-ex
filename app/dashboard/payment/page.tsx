@@ -119,6 +119,11 @@ export default function TopUpBalance() {
     });
   }
 
+  const copyAddress = async() => {
+    navigator.clipboard.writeText('TL5KZLwnieujatuFG5rmB6Xk4ajMCnBen4');
+    toast('Wallet Address Copied To Clipboard');
+  }
+
   return (
     <div className='flex-col h-screen items-center overflow-auto bg-gray-100'>
       <section className="flex items-center ml-5 mt-5">
@@ -154,7 +159,7 @@ export default function TopUpBalance() {
           <Image src={wallet} alt='' width={150} height={150} className='self-center mt-5' />
           <div className='flex flex-row justify-center items-center bg-gray-200 p-4 rounded-lg'>
             <span className='text-center text-sm'>TL5KZLwnieujatuFG5rmB6Xk4ajMCnBen4</span>
-            <Clipboard className='ml-2 bg-blue-500 rounded-xl p-2 text-blue-100' size={35} />
+            <Clipboard className='ml-2 bg-blue-500 rounded-xl p-2 text-blue-100' size={35} onClick={() => {copyAddress()}}/>
           </div>
         </div>
 

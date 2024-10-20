@@ -34,12 +34,12 @@ export default function Component() {
   }
 
   const shareLink = async() => {
-    navigator.clipboard.writeText('https://t.me/PrizeX_Game_Bot/prz?startapp=' + localStorage.getItem('userID'));
+    navigator.clipboard.writeText('https://t.me/prizex_draw_bot/przapp?startapp=' + localStorage.getItem('userID'));
     toast('Invite Link Copied To Clipboard');
   }
 
   const getShareLink = () => {
-    return 'https://t.me/PrizeX_Game_Bot/prz?startapp=' + localStorage.getItem('userID');
+    return 'https://t.me/prizex_draw_bot/przapp?startapp=' + localStorage.getItem('userID');
   }
 
   useEffect(() => {
