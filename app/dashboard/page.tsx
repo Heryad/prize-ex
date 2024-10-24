@@ -1,5 +1,5 @@
 'use client'
-import { BellDot, Minus, Plus } from "lucide-react";
+import { Minus, Plus } from "lucide-react";
 import coin from '@/img/coin.png'
 import Image from "next/image";
 import React, { useEffect, useState } from 'react'
@@ -165,8 +165,7 @@ export default function Home() {
       {/* Header Bar */}
       <section className="flex flex-row w-screen h-20 items-center">
         <span className="p-3 bg-[#FBDFB1] rounded-full ml-5 font-bold">{userName}</span>
-        <BellDot size={45} className="p-2 bg-white rounded-full ml-auto" />
-        <div className="flex flex-row ml-2 mr-5 p-2 bg-white rounded-full items-center">
+        <div className="flex flex-row ml-auto mr-5 p-2 bg-white rounded-full items-center">
           <Image src={coin} width={25} height={25} alt="coin" />
           <span className="text-center ml-2 mr-2 pt-1 font-bold">{userBalance}</span>
           <Plus size={35} className="p-1 bg-gray-200 rounded-full" onClick={() => { router.push('dashboard/payment') }} />

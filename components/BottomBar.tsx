@@ -20,12 +20,12 @@ export default function BottomBar() {
                 <Bookmark size={30} color={pathname == '/dashboard/bookmark' ? 'black' : 'gray'}/>
             </Link>
 
-            <Link href={pathname == '/dashboard' ? `dashboard/profile` : '../dashboard/profile'}>
-                <User size={30} color={pathname == '/dashboard/profile' ? 'black' : 'gray'}/>
-            </Link>
-
             <Link href={pathname == '/dashboard' ? `dashboard/tasks` : '../dashboard/tasks'}>
                 <Gamepad size={30} color={pathname == '/dashboard/tasks' ? 'black' : 'gray'}/>
+            </Link>
+
+            <Link href={pathname == '/dashboard' ? `dashboard/profile` : '../dashboard/profile'}>
+                <User size={30} color={pathname == '/dashboard/profile' ? 'black' : 'gray'}/>
             </Link>
         </main>
     )

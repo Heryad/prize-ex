@@ -59,7 +59,7 @@ export default function MyTickets() {
                 {itemData.map((item, index) => (
                   <div className="flex flex-col bg-white mr-4 ml-4 rounded-lg p-2 mt-2" key={index}>
                     {item.ticketStatus != 'Pending' ? <section className={`flex items-center justify-center p-2 rounded-lg ml-2 mr-2 mt-2 ${item.ticketResult == 'won' ? 'bg-green-300' : 'bg-red-300'}`}>
-                      <span className={`pt-1 pb-1 font-semibold ${item.ticketResult == 'won' ? 'text-green-600' : 'text-red-600'}`}>{item.ticketResult == 'won' ? 'Congratulations you have won! 🥳' : 'Unfortunately you lost '}</span>
+                      <span className={`pt-1 pb-1 font-semibold ${item.ticketResult == 'won' ? 'text-green-600' : 'text-red-600'}`}>{item.ticketResult == 'won' ? 'Congratulations you have won! 🥳' : 'Unfortunately you did not win 😔'}</span>
                     </section> : <></>}
 
                     <section className="flex flex-row w-full mt-4">

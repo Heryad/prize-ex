@@ -139,7 +139,7 @@ function ContestPage() {
           <Progress value={parseInt(calculatePercentage(itemDetails.itemQuantity, itemDetails.itemSoldQuantity))} className="mt-1 h-2" />
           </div>
           <div className="flex justify-between mt-2 text-sm">
-            <div>Applicants: {itemDetails.itemSoldQuantity}</div>
+            <div>Tickets Sold : {calculatePercentage(itemDetails.itemQuantity, itemDetails.itemSoldQuantity)}%</div>
             <div>{itemDetails.itemDate}</div>
           </div>
           <Button className="w-full mt-4 bg-blue-600 hover:bg-blue-700 h-12 rounded-full text-lg" onClick={() => { setIsBarOpen(true) }}>Buy ticket</Button>
