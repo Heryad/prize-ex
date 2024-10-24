@@ -1,5 +1,5 @@
 'use client'
-import { Bell, ChevronRight, FileQuestion, Languages, LucideShoppingBasket, Plus, X } from "lucide-react";
+import { ChevronRight, LucideShoppingBasket, Plus, X } from "lucide-react";
 import Image from "next/image";
 import coin from '@/img/coin.png'
 import { Button } from "@/components/ui/button";
@@ -11,6 +11,7 @@ import copylink from '@/img/copylink.png'
 import twitter from '@/img/twitter.png'
 import whatsapp from '@/img/whatsapp.png'
 import telegram from '@/img/telegram.png'
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 export default function Component() {
   const router = useRouter();
@@ -145,9 +146,9 @@ export default function Component() {
       <div className="fixed h-[550px] bottom-[70px] left-0 right-0 shadow-[0px_-70px_50px_18px_rgba(204,204,204,0.86)] bg-white text-primary-foreground border-none p-3 rounded-t-lg z-50" hidden={!teamBar}>
         <X color="black" className="ml-auto" onClick={() => { setTeamBar(false) }} />
         <span className="flex text-black justify-center pt-2 font-bold text-lg">My Team</span>
-        <div className="flex flex-row mt-4 justify-center items-center">
+        <ScrollArea className="flex flex-col h-[450px] mt-4 justify-center items-center overflow-hidden">
           {teamData.map((item, index) => (
-            <div key={index} className='w-full flex flex-row bg-gray-100 rounded-lg p-4'>
+            <div key={index} className='w-full flex flex-row bg-gray-100 rounded-lg p-4 mt-2'>
               <div>
               <span className="font-semibold mt-2 mb-2 ml-4 flex text-black">{item.userFirstName}</span>
               <span className="mt-2 mb-2 ml-4 flex text-black">{item.registerDate}</span>
@@ -158,7 +159,7 @@ export default function Component() {
               </div>
             </div>
           ))}
-        </div>
+        </ScrollArea>
       </div>
       <ToastContainer />
     </div>
